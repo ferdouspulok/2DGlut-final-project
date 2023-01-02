@@ -1,0 +1,749 @@
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
+#include <windows.h>
+#define PI 3.1416
+int posx = 0;
+
+double sval=0;
+bool flagScale=false;
+
+
+void drawFilledCircle(GLfloat x, GLfloat y, GLfloat radius){
+int i;
+int triangleAmount = 20; //# of triangles used to draw circle
+GLfloat twicePi = 2.0f * PI;
+
+
+glBegin(GL_TRIANGLE_FAN);
+glVertex2f(x, y); // center of circle
+for(i = 0; i <= triangleAmount;i++) {
+glVertex2f(
+           x + (radius * cos(i *  twicePi / triangleAmount)),
+   y + (radius * sin(i * twicePi / triangleAmount))
+);
+}
+glEnd();
+}
+
+
+
+void init(void)
+
+{
+    glClearColor(0.0,1.0,1.0,1.0);
+
+    glMatrixMode(GL_PROJECTION);
+    gluOrtho2D(0.0,85.0,0.0,82.0);
+}
+void line_drawing(float a, float b, float c, float d)
+{
+    glBegin(GL_LINES);
+        glVertex2f(a,b);
+        glVertex2f(c,d);
+
+    glEnd();
+}
+void quads(float a, float b, float c, float d, float e, float f, float g, float h){
+
+    glBegin(GL_QUADS);
+
+    glVertex2f(a,b);
+    glVertex2f(c,d);
+    glVertex2f(e,f);
+    glVertex2f(g,h);
+
+    glEnd();
+}
+void triangle (float a, float b, float c, float d,float e, float f){
+glBegin(GL_TRIANGLES);
+
+    glVertex2f(a,b);
+    glVertex2f(c,d);
+    glVertex2f(e, f);
+
+    glEnd();
+
+}
+void pentagon(int a, int b, int c, int d, int e, int f, int g, int h, int i, int j, int k, int l, int m, int n, int o, int p, int q, int r)
+{
+    glBegin(GL_TRIANGLES); //Begin triangle coordinates
+
+//Pentagon
+glVertex2i(a, b);
+glVertex2i(c, d);
+glVertex2i(e, f);
+
+glVertex2i(g, h);
+glVertex2i(i, j);
+glVertex2i(k, l);
+
+glVertex2i(m, n);
+glVertex2i(o, p);
+glVertex2i(q, r);
+
+glEnd();//End triangle coordinates
+}
+
+
+void river()
+{
+    glColor3f(0.035294, 0.50980392, 0.9560627);
+    glBegin(GL_POLYGON);
+
+     glVertex3i(14,0,0);
+     glVertex3i(12,12,0);
+     glVertex3i(50,12,0);
+     glVertex3i(49,0,0);
+
+glEnd();
+}
+void boat()
+{
+    quads(18.0, 20.0, 18.0, 24.0, 20.0, 24.0, 20.0, 20.0);
+    quads(16.4,16.0,16.4,24.0,18.0,24.0,18.0,16.0);
+    glColor3f(0,0,0);
+    quads(17.5, 24.0, 17.5, 28.0, 19.0, 28.0, 19.0, 24.0);
+    quads(20.5,20.0,20.5,22.0,26.0,22.0,26.0,20.0);
+
+        glColor3f(0,0,0);
+        glBegin(GL_POLYGON);
+
+    glVertex3i(19,12,0);
+    glVertex3i(16,16,0);
+    glVertex3i(30,16,0);
+    glVertex3i(26,12,0);
+    glEnd();
+    glColor3f(1,0,0);
+    glBegin(GL_POLYGON);
+
+
+    glVertex3i(18,16,0);
+    glVertex3i(18,20,0);
+    glVertex3i(28,20,0);
+    glVertex3i(28,16,0);
+    glEnd();
+    glColor3f(1,0.7,0);
+   glBegin(GL_TRIANGLES);
+
+    glVertex3i(28,16,0);
+    glVertex3i(28,20,0);
+    glVertex3i(30,16,0);
+
+    glEnd();
+
+
+
+
+}
+
+void tree()
+{
+    ///tree1
+    glColor3f(0.6156863,0,0);
+
+    glBegin(GL_POLYGON);
+
+    glVertex3i(5, 12, 0);
+    glVertex3i(7, 12, 0);
+
+
+    glVertex3i(7, 30, 0);
+    glVertex3i(5, 30, 0);
+
+    glEnd();
+
+    glColor3f(0.0, 0.5, 0.0);
+
+    glBegin(GL_POLYGON);
+
+    glVertex3i(1, 30, 0);
+    glVertex3i(11, 30, 0);
+
+
+    glVertex3i(6, 40, 0);
+
+    glEnd();
+    glBegin(GL_POLYGON);
+
+
+    glVertex3i(1, 35, 0);
+    glVertex3i(10, 35, 0);
+
+
+    glVertex3i(6, 45, 0);
+
+
+
+glEnd();
+
+}
+
+
+void river_night()
+{
+    glColor3f(0.035294, 0.50980392, 0.9560627);
+    glBegin(GL_POLYGON);
+
+     glVertex3i(14,0,0);
+     glVertex3i(12,12,0);
+     glVertex3i(50,12,0);
+     glVertex3i(49,0,0);
+
+glEnd();
+}
+void boat_night()
+{
+    quads(18.0, 20.0, 18.0, 24.0, 20.0, 24.0, 20.0, 20.0);
+    quads(16.4,16.0,16.4,24.0,18.0,24.0,18.0,16.0);
+    glColor3f(0,0,0);
+    quads(17.5, 24.0, 17.5, 28.0, 19.0, 28.0, 19.0, 24.0);
+    quads(20.5,20.0,20.5,22.0,26.0,22.0,26.0,20.0);
+
+        glColor3f(0,0,0);
+        glBegin(GL_POLYGON);
+
+    glVertex3i(19,12,0);
+    glVertex3i(16,16,0);
+    glVertex3i(30,16,0);
+    glVertex3i(26,12,0);
+    glEnd();
+    glColor3f(1,0,0);
+    glBegin(GL_POLYGON);
+
+
+    glVertex3i(18,16,0);
+    glVertex3i(18,20,0);
+    glVertex3i(28,20,0);
+    glVertex3i(28,16,0);
+    glEnd();
+    glColor3f(1,0.7,0);
+   glBegin(GL_TRIANGLES);
+
+    glVertex3i(28,16,0);
+    glVertex3i(28,20,0);
+    glVertex3i(30,16,0);
+
+    glEnd();
+
+
+
+
+}
+
+void tree_night()
+{
+    ///tree1
+    glColor3f(0.6156863,0,0);
+
+    glBegin(GL_POLYGON);
+
+    glVertex3i(5, 12, 0);
+    glVertex3i(7, 12, 0);
+
+
+    glVertex3i(7, 30, 0);
+    glVertex3i(5, 30, 0);
+
+    glEnd();
+
+    glColor3f(0.0, 0.5, 0.0);
+
+    glBegin(GL_POLYGON);
+
+    glVertex3i(1, 30, 0);
+    glVertex3i(11, 30, 0);
+
+
+    glVertex3i(6, 40, 0);
+
+    glEnd();
+    glBegin(GL_POLYGON);
+
+
+    glVertex3i(1, 35, 0);
+    glVertex3i(10, 35, 0);
+
+
+    glVertex3i(6, 45, 0);
+
+
+
+glEnd();
+
+}
+
+
+void front_page()
+{
+    char text[120];
+
+        sprintf(text, "UNIVERSITY OF INFORMATION TECHNOLOGY & SCIENCE",5.00,8.00);
+    glColor3f(0, 1, 0);
+    glRasterPos2f( -35 , 55 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+
+    sprintf(text, "Final Project Presentation",5.00,8.00);
+    glColor3f(1, 1, 0);
+    glRasterPos2f( -20 , 45 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+
+        sprintf(text, "NAME- Pulok",5.00,8.00);
+    glColor3f(0.0616, 0.375, 0.880);
+    glRasterPos2f( -20 , 35 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+        sprintf(text, "ID-1914551102",5.00,8.00);
+    glColor3f(0.0616, 0.375, 0.880);
+    glRasterPos2f( -20 , 30 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+            sprintf(text, "DEPARTMENT OF CSE",5.00,8.00);
+    glColor3f(0.0616, 0.375, 0.880);
+    glRasterPos2f( -20 , 25 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+            sprintf(text, "SUBMITTED TO-",5.00,8.00);
+    glColor3f(0.880, 0.233, 0.0176);
+    glRasterPos2f( -20 , 17 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+                sprintf(text, "SALIM SHADMAN ANKUR & PROPA PUNAM",5.00,8.00);
+    glColor3f(0.880, 0.233, 0.0176);
+    glRasterPos2f( -10 , 12 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+                sprintf(text, "PRESS 'd' FOR DAY MODE",5.00,8.00);
+    glColor3f(0, 0, 0);
+    glRasterPos2f( -20 , 5 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+        sprintf(text, "PRESS 'n' FOR NIGHT MODE",5.00,8.00);
+    glColor3f(0, 0, 0);
+    glRasterPos2f( -20 , 0 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+    sprintf(text, "PRESS 'c' FOR FRONT WINDOW",5.00,8.00);
+    glColor3f(0, 0, 0);
+    glRasterPos2f( -20 , -5 );
+    for(int i = 0; text[i] != '\0'; i++)
+    {
+        if(text[i]==' '  && text[i+1]==' ')
+        {
+            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+            glRasterPos2f( -32 , 02 );
+        }
+        else glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text[i]);
+    }
+
+
+
+}
+
+
+
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glClearColor(1,1,1,0);
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+    gluOrtho2D(-70,70,-50,50);
+    //glMatrixMode( GL_MODELVIEW );
+    //glLoadIdentity();
+    glPushMatrix();
+    front_page();
+    glEnd();
+    glPopMatrix();
+     glFlush();
+    glutSwapBuffers();
+
+
+
+}
+
+
+
+void drawShapes_night(void)
+{
+glClear(GL_COLOR_BUFFER_BIT); // Clear display window
+
+   // glColor3f(0.0f, 0.1f, 0.0f);//Forest Green
+    glColor3f(0.0f, 1.0f, 0.0f);//Green
+
+
+
+   quads(0.0,0.0,0.0,13.0,90.0,13.0,90.0,0.0); //
+
+
+   glColor3f(0.0f, 1.0f, 1.0f);
+   //sky
+   glColor3f(0.0,0.0,0.0);
+   quads(0.0,12.0,0.0,85.0,85.0,85.0,85.0,12.0);
+
+   //glColor3f(0.0f, 1.0f, 0.0f);//Green
+   //quads(4,11.0,4.0,32.0,6.0,32.0,6.0,11.0);
+
+//Set colour to black
+glColor3f(0.0, 0.0, 0.0);
+//Adjust the point size
+glPointSize(5.0);
+
+//Set colour to red
+glColor3f(1.0, 0.0, 0.0);
+
+    line_drawing(69.0,6.0,69.0,16.0);
+    line_drawing(69.0,16.0,77.0,16.0);
+    line_drawing(77.0,16.0,77.0,6.0);
+    line_drawing(69.0,6.0,77.0,6.0);
+    quads(70.5,10.0,70.5,12.0,71.5,12.0,71.5,10.0);
+    glColor3f(1.0, 0.0, 1.0);
+    quads(71.5,10.0,71.5,12.0,72.0,12.0,72.0,10.0);
+    glColor3f(0.0, 0.0, 1.0);
+    quads(72.0,10.0,72.0,12.0,73.0,12.0,73.0,10.0);
+    line_drawing(75.0,6.0,75.0,10.0);
+    line_drawing(75.0,10.0,76.7,10.0);
+    line_drawing(76.7,10.0,76.7,6.0);
+    quads(75.5,9.7,76.5,9.7,76.5,6.5,75.5,6.5);
+
+    line_drawing(69.0, 16.0 ,69.0,28.0);
+    line_drawing(69.0, 28.0 ,77.0,28.0);
+    line_drawing(77.0, 28.0 ,77.0,16.0);
+    quads(70.0,20.0,70.0,22.0,72.0,22.0,72.0,20.0);
+    quads(73.0,20.0,73.0,22.0,75.0,22.0,75.0,20.0);
+    glColor3f(1.0, 0.50, 1.0);
+    quads(77.0,6.0,77.0,38.0,82.0,38.0,82.0,6.0);
+    glColor3f(0.50, 1.0, 0.0);
+    triangle(77.0,38.0,79.0,48.0,82.0,38.0);
+    glColor3f(1.0, 0.60, 1.0);
+    //tr
+
+   // glColor3f(0.0, 0.60, 1.0);
+    glColor4f(1.0f, 0.0f, 0.0f, 0.0f);//red
+
+
+    //moi
+    line_drawing(63.0, 6.0 ,68.0,28.0);
+    line_drawing(64.0, 6.0 ,69.0,28.0);
+
+
+
+    line_drawing(63.3, 8.0 ,64.6,8.0);
+    line_drawing(64.0, 10.0 ,64.9,10.0);
+    line_drawing(64.3, 12.0 ,65.3,12.0);
+    line_drawing(64.9, 14.0 ,65.9,14.0);
+    line_drawing(65.2, 16.0 ,66.2,16.0);
+    line_drawing(65.8, 18.0 ,66.8,18.0);
+    line_drawing(66.1, 20.0 ,67.2,20.0);
+    line_drawing(66.4, 22.0 ,67.6,22.0);
+    line_drawing(67.0, 24.0 ,68.0,24.0);
+    line_drawing(67.4, 26.0 ,68.5,26.0);
+    line_drawing(48.0, 6.0 ,49.3,7.9);
+
+    glColor3f(1.0f, 1.89f, 0.89f);
+    triangle(55.0,25.0,58.0,35.0,61.0,25.0);
+    glColor3f(0.5411764705882353, 0.0, 0.5411764705882353);
+
+    quads(55.0,12.0,55.0,25.0,61.0,25.0,61.0,12.0);
+
+    tree_night();
+    river_night();
+   // pentagon();
+
+        glPushMatrix();
+        glTranslatef(posx,-1,-1);
+        boat_night();
+        glPopMatrix();
+
+
+//moon
+   glPushMatrix();
+   glColor3f(1.0,1.0,1.0);
+   glTranslatef(sval,0,0);
+    drawFilledCircle(28,65,2.5);
+   glPopMatrix();
+
+
+
+glFlush(); // Process all OpenGL routines
+}
+
+
+void drawShapes(void)
+{
+glClear(GL_COLOR_BUFFER_BIT); // Clear display window
+
+   // glColor3f(0.0f, 0.1f, 0.0f);//Forest Green
+    glColor3f(0.0f, 1.0f, 0.0f);//Green
+
+
+
+   quads(0.0,0.0,0.0,13.0,90.0,13.0,90.0,0.0); //
+
+
+   glColor3f(0.0f, 1.0f, 1.0f);
+   //sky
+   glColor3f(0.0,0.9,0.9);
+   quads(0.0,12.0,0.0,85.0,85.0,85.0,85.0,12.0);
+
+   //glColor3f(0.0f, 1.0f, 0.0f);//Green
+   //quads(4,11.0,4.0,32.0,6.0,32.0,6.0,11.0);
+
+//Set colour to black
+glColor3f(0.0, 0.0, 0.0);
+//Adjust the point size
+glPointSize(5.0);
+
+//Set colour to red
+glColor3f(1.0, 0.0, 0.0);
+
+    line_drawing(69.0,6.0,69.0,16.0);
+    line_drawing(69.0,16.0,77.0,16.0);
+    line_drawing(77.0,16.0,77.0,6.0);
+    line_drawing(69.0,6.0,77.0,6.0);
+    quads(70.5,10.0,70.5,12.0,71.5,12.0,71.5,10.0);
+    glColor3f(1.0, 0.0, 1.0);
+    quads(71.5,10.0,71.5,12.0,72.0,12.0,72.0,10.0);
+    glColor3f(0.0, 0.0, 1.0);
+    quads(72.0,10.0,72.0,12.0,73.0,12.0,73.0,10.0);
+    line_drawing(75.0,6.0,75.0,10.0);
+    line_drawing(75.0,10.0,76.7,10.0);
+    line_drawing(76.7,10.0,76.7,6.0);
+    quads(75.5,9.7,76.5,9.7,76.5,6.5,75.5,6.5);
+
+    line_drawing(69.0, 16.0 ,69.0,28.0);
+    line_drawing(69.0, 28.0 ,77.0,28.0);
+    line_drawing(77.0, 28.0 ,77.0,16.0);
+    quads(70.0,20.0,70.0,22.0,72.0,22.0,72.0,20.0);
+    quads(73.0,20.0,73.0,22.0,75.0,22.0,75.0,20.0);
+    glColor3f(1.0, 0.50, 1.0);
+    quads(77.0,6.0,77.0,38.0,82.0,38.0,82.0,6.0);
+    glColor3f(0.50, 1.0, 0.0);
+    triangle(77.0,38.0,79.0,48.0,82.0,38.0);
+    glColor3f(1.0, 0.60, 1.0);
+    //tr
+
+   // glColor3f(0.0, 0.60, 1.0);
+    glColor4f(1.0f, 0.0f, 0.0f, 0.0f);//red
+
+
+    //moi
+    line_drawing(63.0, 6.0 ,68.0,28.0);
+    line_drawing(64.0, 6.0 ,69.0,28.0);
+
+
+
+    line_drawing(63.3, 8.0 ,64.6,8.0);
+    line_drawing(64.0, 10.0 ,64.9,10.0);
+    line_drawing(64.3, 12.0 ,65.3,12.0);
+    line_drawing(64.9, 14.0 ,65.9,14.0);
+    line_drawing(65.2, 16.0 ,66.2,16.0);
+    line_drawing(65.8, 18.0 ,66.8,18.0);
+    line_drawing(66.1, 20.0 ,67.2,20.0);
+    line_drawing(66.4, 22.0 ,67.6,22.0);
+    line_drawing(67.0, 24.0 ,68.0,24.0);
+    line_drawing(67.4, 26.0 ,68.5,26.0);
+    line_drawing(48.0, 6.0 ,49.3,7.9);
+
+    glColor3f(1.0f, 1.89f, 0.89f);
+    triangle(55.0,25.0,58.0,35.0,61.0,25.0);
+    glColor3f(0.5411764705882353, 0.0, 0.5411764705882353);
+
+    quads(55.0,12.0,55.0,25.0,61.0,25.0,61.0,12.0);
+
+    tree();
+    river();
+   // pentagon();
+
+        glPushMatrix();
+        glTranslatef(posx,-1,-1);
+        boat();
+        glPopMatrix();
+
+
+//sun
+   glPushMatrix();
+   glColor3f(1.0,1.0,0.0);
+   glTranslatef(sval,0,0);
+    drawFilledCircle(28,65,2.5);
+   glPopMatrix();
+
+
+
+glFlush(); // Process all OpenGL routines
+}
+
+
+
+void update(int value) {
+
+
+    if(posx>=22)
+    {
+        posx=0;
+    }
+    else{
+        posx++;
+    }
+    glutPostRedisplay();
+glutTimerFunc(250, update, 0);
+}
+
+void myKeyboardFunc( unsigned char key, int x, int y )
+{
+    switch ( key )
+    {
+    case 's':
+        flagScale=true;
+        break;
+    case 'f':
+        flagScale=false;
+        break;
+     case  'd':
+            glutDestroyWindow(1);
+            glutInitWindowSize(600, 600);
+
+            glutCreateWindow("Day");
+            glutKeyboardFunc(myKeyboardFunc);
+            init();
+            glutDisplayFunc(drawShapes);
+            glutTimerFunc(0, update, 0);
+            break;
+
+        case 'n':
+            glutDestroyWindow(1);
+            glutInitWindowSize(600, 600);
+
+            glutCreateWindow("Night");
+            glutKeyboardFunc(myKeyboardFunc);
+            init();
+            glutDisplayFunc(drawShapes_night);
+            glutTimerFunc(0, update, 0);
+
+            break;
+         case 'c':
+            glutDestroyWindow(1);
+            glutInitWindowSize(1000, 600);
+
+            glutCreateWindow("Front Page");
+            glutKeyboardFunc(myKeyboardFunc);
+            glutDisplayFunc(display);
+
+            glutPostRedisplay();
+            break;
+
+
+    case 27: // Escape key
+        exit(1);
+    }
+    glutPostRedisplay();
+}
+
+void animate()
+{
+if (flagScale == true)
+{
+sval+= 0.003;
+if(sval > 60)
+sval = -30;
+}
+if (flagScale == false)
+{
+sval = 0;
+
+}
+
+
+
+glutPostRedisplay();
+}
+
+
+
+int main(int argc, char* argv[])
+{
+glutInit(&argc, argv);     // Initalise GLUT
+glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);     // Set display mode
+
+glutInitWindowPosition(50, 100); // Set window position
+glutInitWindowSize(1000, 600); // Set window size
+glutCreateWindow("Village View"); // Create display window
+
+//init(); // Execute initialisation procedure
+glutDisplayFunc(display);
+glutTimerFunc(0, update, 0);
+
+glutKeyboardFunc(myKeyboardFunc);
+ glutIdleFunc(animate); // Send graphics to display window
+glutMainLoop(); // Display everything and wait
+
+return 0;
+}
